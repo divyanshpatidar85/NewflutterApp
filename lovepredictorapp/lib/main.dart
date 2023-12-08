@@ -4,10 +4,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lovepredictorapp/resource.dart';
+import 'package:lovepredictorapp/showResult.dart';
 
-
+double  percent=0.0;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,126 +64,259 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   String  firstpersondob='dd/mm/yyyy',secondpersondob='dd/mm/yyyy';
-    final TextEditingController first=TextEditingController();
-final TextEditingController second=TextEditingController();
-  DateTime ? dob1,dob2;
-  double  percent=0.0;
+
+
+  final malenameTextEditingController = TextEditingController();
+  final maledatelTextEditingController = TextEditingController();
+  final femaleTextEditingController = TextEditingController();
+  final femaledateTextEditingController = TextEditingController();
+  final passwordTextEditingController = TextEditingController();
+  final _formkey =GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
- 
-    return Scaffold(
-      appBar: AppBar(
-       
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        
-        title: Text(widget.title),
-      ),
-      body:Center(
-        child:SizedBox(
-          height:MediaQuery.of(context).size.height*0.5,
-          width:MediaQuery.of(context).size.width*0.8 ,
-          child:   Column(
-            children: [
-              TextField(
-                keyboardType:TextInputType.text,
-                controller:first,
-                decoration:const InputDecoration(
-                  label:Text('Enter Your Name'),
-                   focusedBorder:OutlineInputBorder()
+
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade800,
+
+        body: Center(
+          child: Container(
+            width: kIsWeb ? MediaQuery.of(context).size.width/2.1:MediaQuery.of(context).size.width,
+            child: ListView(
+              // padding: EdgeInsets.all(10),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width:kIsWeb?MediaQuery.of(context).size.width/4.5: MediaQuery.of(context).size.width/2,
+                      child: Image.asset("assets/images/lo.gif"),
+                    ),
+
+                    Container(
+                      width:kIsWeb?MediaQuery.of(context).size.width/4.5: MediaQuery.of(context).size.width/2,
+                      child: Image.asset("assets/images/lo.gif"),
+                    ),
+                  ],
                 ),
-                
-              ),
-              
-            
-              SizedBox(height:MediaQuery.of(context).size.height*0.02,),
-              
-              InkWell
-              (
-                child: Text('$firstpersondob'),
-                onTap:() async{
-                  dob1= await showDatePicker(
-                  context:context,
-                  initialDate:DateTime.now(),
-                  lastDate:DateTime.now(),
-                  firstDate:DateTime(1952),
-                  );
-                 
-                  // dob1=dob1?.day as DateTime?;
-                  if(dob1!=null){
-                  firstpersondob = DateFormat('dd/MM/yyyy').format(dob1!);
-                  // secondpersondob = DateFormat('dd/MM/yyyy').format(dob2!);
-                    setState(() {
-                      
-                    });
-                  }
-                }
-              ),
-              
-            
-           SizedBox(height:MediaQuery.of(context).size.height*0.02,),
-              TextField(
-                keyboardType:TextInputType.text,
-                controller:second,
-                decoration:const InputDecoration(
-                  label:Text('Enter Your Partner Name'),
-                  // border:OutlineInputBorder(),
-                  focusedBorder:OutlineInputBorder()
-                  
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40,20,40,20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Form(
+                        key:_formkey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            TextFormField(
+                              style: TextStyle(color: Colors.white),
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(50)
+                              ],
+                              decoration: InputDecoration(
+                                hintText: "Male",
+                                hintStyle: TextStyle(color: Colors.white,fontSize: 20),
+                                filled: true,
+                                fillColor:Colors.black,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        width: 0,
+                                        style: BorderStyle.none
+                                    )
+                                ),
+                                prefixIcon: Icon(Icons.person,color:Colors.amber.shade400,),
+                              ),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator: (text){
+                                if(text==null || text.isEmpty){
+                                  return 'Name can\'t be empty';
+                                }
+                                if(text.length<2){
+                                  return 'Please Enter a valid Name';
+                                }
+                                if(text.length>49){
+                                  return 'Name can\'t be greater than 50';
+                                }
+                              },
+                              onChanged: (text)=>setState(() {
+                                malenameTextEditingController.text =text;
+
+                              }),
+                            ),
+                            SizedBox(height: 15,),
+                            TextFormField(
+                              style: TextStyle(color: Colors.white),
+                              controller: maledatelTextEditingController,
+                              readOnly: true,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(50)
+                              ],
+                              decoration: InputDecoration(
+                                hintText: "Male DOB",
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20
+                                ),
+                                filled: true,
+                                fillColor: Colors.black,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        width: 0,
+                                        style: BorderStyle.none
+                                    )
+                                ),
+                                prefixIcon: Icon(Icons.date_range,color:Colors.amber.shade400),
+                              ),
+                              onTap: ()async{
+                                DateTime? datepicker = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  lastDate: DateTime(2050),
+                                );
+                                var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
+                                print(date);
+                                maledatelTextEditingController.text = date;
+
+
+                              },
+                            ),
+                            Image.asset("assets/images/love.png",width: 150,),
+                            TextFormField(
+                              style: TextStyle(color: Colors.white),
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(50)
+                              ],
+                              decoration: InputDecoration(
+                                hintText: "Female",
+                                hintStyle: TextStyle(color: Colors.white,fontSize: 20),
+                                filled: true,
+                                fillColor: Colors.black,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        width: 0,
+                                        style: BorderStyle.none
+                                    )
+                                ),
+                                prefixIcon:  Icon(Icons.person,color: Colors.amber.shade400,),
+                              ),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator: (text){
+                                if(text==null || text.isEmpty){
+                                  return 'Name can\'t be empty';
+                                }
+                                if(text.length<2){
+                                  return 'Please Enter a valid Name';
+                                }
+                                if(text.length>49){
+                                  return 'Name can\'t be greater than 50';
+                                }
+                              },
+                              onChanged: (text)=>setState(() {
+                                femaleTextEditingController.text =text;
+                              }),
+                            ),SizedBox(height: 15,),
+                            TextFormField(
+                              style: TextStyle(color: Colors.white),
+                              controller: femaledateTextEditingController,
+                              readOnly: true,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(50)
+                              ],
+                              decoration: InputDecoration(
+                                hintText: "Female DOB",
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20
+                                ),
+                                filled: true,
+                                fillColor: Colors.black,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        width: 0,
+                                        style: BorderStyle.none
+                                    )
+                                ),
+                                prefixIcon: Icon(Icons.date_range,color:Colors.amber.shade400),
+                              ),
+                              onTap: ()async{
+                                DateTime? datepicker = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  lastDate: DateTime(2050),
+                                );
+                                var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
+                                print(date);
+                                femaledateTextEditingController.text = date;
+
+
+                              },
+                            ),
+                            SizedBox(height: 20,),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.amber.shade400,
+                                  onPrimary:Colors.black ,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+
+                                  ),
+                                  minimumSize: Size(double.infinity, 50)
+
+                              ),
+                              onPressed: ()async{
+                                percent= await FireStoreMethods().AddData(malenameTextEditingController.text.trim().toLowerCase(),femaleTextEditingController.text.trim().toLowerCase(),maledatelTextEditingController.text.trim().toLowerCase(),femaledateTextEditingController.text.trim().toLowerCase());
+                                  malenameTextEditingController.text='';
+                                  femaleTextEditingController.text='';
+                                  maledatelTextEditingController.text='Male DOB';
+                                  femaledateTextEditingController.text='Female DOB';
+                                  print('${percent}');
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>showResult()));
+
+                              }, child: Text("Submit"),
+
+
+                            )
+
+
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                
-              ),
-               SizedBox(height:MediaQuery.of(context).size.height*0.02,),
-               InkWell
-              (
-                child: Text('$secondpersondob'),
-                onTap:() async{
-                  dob2= await showDatePicker(
-                  context:context,
-                  initialDate:DateTime.now(),
-                  lastDate:DateTime.now(),
-                  firstDate:DateTime(1952),
-                  );
-                 
-                  // dob1=dob1?.day as DateTime?;
-                  if(dob2!=null){
-                  secondpersondob = DateFormat('dd/MM/yyyy').format(dob2!);
-                  
-                    
-                    Duration dob3=dob1!.difference(dob2!);
-                    double a=dob3.inDays/365;
-                    if(a<0){
-                      a=-a;
-                    }
-                     print('helllo    ${a}     dob3 in days ${dob3.inDays}');
-                    setState(() {
-                      
-                    });
-                  }
-                }
-              ),
-              ElevatedButton(onPressed:() async{
-            
-               percent= await FireStoreMethods().AddData(first.text.toLowerCase(),second.text.toLowerCase(),firstpersondob,secondpersondob);
-              first.text='';
-              second.text='';
-              firstpersondob='dd/mm/yyyy';
-              secondpersondob='dd/mm/yyyy';
-              print('${percent}');
-              setState(() {
-                
-              });
-              }, child:const Text('Submit')
-              ),
-              percent!=0?Text('Your Love percent is :${percent}'):Text('')
-            ],
+              ],
+            ),
           ),
         ),
-      )
-       
+
+      ),
     );
+
   }
+
 }
 
-class AddData {
-}
+// ElevatedButton(onPressed:() async{
+//
+// percent= await FireStoreMethods().AddData(first.text.toLowerCase(),second.text.toLowerCase(),firstpersondob,secondpersondob);
+// first.text='';
+// second.text='';
+// firstpersondob='dd/mm/yyyy';
+// secondpersondob='dd/mm/yyyy';
+// print('${percent}');
+// setState(() {
+//
+// });
+// }, child:const Text('Submit')
