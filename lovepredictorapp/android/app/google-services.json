@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "791970927131",
+    "project_id": "lovepredictorapp",
+    "storage_bucket": "lovepredictorapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791970927131:android:3428af83b9d4316fd69ebe",
+        "android_client_info": {
+          "package_name": "com.example.lovepredictorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu_z_7mCDHDVreD9BN39aCc2TAcLXdi8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
