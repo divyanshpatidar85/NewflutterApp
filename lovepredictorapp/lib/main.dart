@@ -120,8 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 LengthLimitingTextInputFormatter(50)
                               ],
                               decoration: InputDecoration(
-                                hintText: "Male",
-                                hintStyle: TextStyle(color: Colors.white,fontSize: 20),
+                                hintText: "Your Name",
+                                hintStyle: TextStyle(color: Colors.white,fontSize: 17),
                                 filled: true,
                                 fillColor:Colors.black,
                                 border: OutlineInputBorder(
@@ -159,15 +159,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                 LengthLimitingTextInputFormatter(50)
                               ],
                               decoration: InputDecoration(
-                                hintText: "Male DOB",
+                                hintText: "Your Birth (Optional)",
                                 hintStyle: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20
+                                    fontSize: 17
                                 ),
                                 filled: true,
                                 fillColor: Colors.black,
                                 border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(15),
                                     borderSide: BorderSide(
                                         width: 0,
                                         style: BorderStyle.none
@@ -180,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   context: context,
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime(1950),
-                                  lastDate: DateTime(2050),
+                                  lastDate: DateTime.now(),
                                 );
                                 var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
                                 print(date);
@@ -196,8 +196,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 LengthLimitingTextInputFormatter(50)
                               ],
                               decoration: InputDecoration(
-                                hintText: "Female",
-                                hintStyle: TextStyle(color: Colors.white,fontSize: 20),
+                                hintText: "Your Partener Name",
+                                hintStyle: TextStyle(color: Colors.white,fontSize: 17),
                                 filled: true,
                                 fillColor: Colors.black,
                                 border: OutlineInputBorder(
@@ -233,10 +233,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 LengthLimitingTextInputFormatter(50)
                               ],
                               decoration: InputDecoration(
-                                hintText: "Female DOB",
+                                hintText: "Your Partener Birth (Optional)",
                                 hintStyle: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20
+                                    fontSize: 17
                                 ),
                                 filled: true,
                                 fillColor: Colors.black,
@@ -254,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   context: context,
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime(1950),
-                                  lastDate: DateTime(2050),
+                                  lastDate: DateTime.now(),
                                 );
                                 var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
                                 print(date);
