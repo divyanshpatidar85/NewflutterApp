@@ -83,22 +83,24 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.grey.shade800,
 
         body: Center(
-          child: Container(
-            width: kIsWeb ? MediaQuery.of(context).size.width/2.1:MediaQuery.of(context).size.width,
+          child: SizedBox(
+            
+             width:(MediaQuery.of(context).size.width<MediaQuery.of(context).size.height)?MediaQuery.of(context).size.width:MediaQuery.of(context).size.width*0.78,
             child: ListView(
-              // padding: EdgeInsets.all(10),
+              
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width:kIsWeb?MediaQuery.of(context).size.width/4.5: MediaQuery.of(context).size.width/2,
-                      child: Image.asset("assets/images/lo.gif"),
-                    ),
+                  
 
-                    Container(
-                      width:kIsWeb?MediaQuery.of(context).size.width/4.5: MediaQuery.of(context).size.width/2,
-                      child: Image.asset("assets/images/lo.gif"),
+                    SizedBox(
+                  height:(MediaQuery.of(context).size.width<MediaQuery.of(context).size.height)?MediaQuery.of(context).size.height*0.4 :MediaQuery.of(context).size.height*0.5,
+                  width:(MediaQuery.of(context).size.width<MediaQuery.of(context).size.height)?MediaQuery.of(context).size.width:MediaQuery.of(context).size.width*0.4 ,
+                      child: Image.asset("assets/images/heart.gif",
+                      fit:BoxFit.contain,
+                      ),
+                      
                     ),
                   ],
                 ),
@@ -110,187 +112,190 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       Form(
                         key:_formkey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            TextFormField(
-                              style: TextStyle(color: Colors.white),
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(50)
-                              ],
-                              decoration: InputDecoration(
-                                hintText: "Your Name",
-                                hintStyle: TextStyle(color: Colors.white,fontSize: 17),
-                                filled: true,
-                                fillColor:Colors.black,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                        width: 0,
-                                        style: BorderStyle.none
-                                    )
-                                ),
-                                prefixIcon: Icon(Icons.person,color:Colors.amber.shade400,),
-                              ),
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                              validator: (text){
-                                if(text==null || text.isEmpty){
-                                  return 'Name can\'t be empty';
-                                }
-                                if(text.length<2){
-                                  return 'Please Enter a valid Name';
-                                }
-                                if(text.length>49){
-                                  return 'Name can\'t be greater than 50';
-                                }
-                              },
-                              onChanged: (text)=>setState(() {
-                                malenameTextEditingController.text =text;
-
-                              }),
-                            ),
-                            SizedBox(height: 15,),
-                            TextFormField(
-                              style: TextStyle(color: Colors.white),
-                              controller: maledatelTextEditingController,
-                              readOnly: true,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(50)
-                              ],
-                              decoration: InputDecoration(
-                                hintText: "Your Birth (Optional)",
-                                hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17
-                                ),
-                                filled: true,
-                                fillColor: Colors.black,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    borderSide: BorderSide(
-                                        width: 0,
-                                        style: BorderStyle.none
-                                    )
-                                ),
-                                prefixIcon: Icon(Icons.date_range,color:Colors.amber.shade400),
-                              ),
-                              onTap: ()async{
-                                DateTime? datepicker = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1950),
-                                  lastDate: DateTime.now(),
-                                );
-                                var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
-                                print(date);
-                                maledatelTextEditingController.text = date;
-
-
-                              },
-                            ),
-                            Image.asset("assets/images/love.png",width: 150,),
-                            TextFormField(
-                              style: TextStyle(color: Colors.white),
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(50)
-                              ],
-                              decoration: InputDecoration(
-                                hintText: "Your Partener Name",
-                                hintStyle: TextStyle(color: Colors.white,fontSize: 17),
-                                filled: true,
-                                fillColor: Colors.black,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                        width: 0,
-                                        style: BorderStyle.none
-                                    )
-                                ),
-                                prefixIcon:  Icon(Icons.person,color: Colors.amber.shade400,),
-                              ),
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                              validator: (text){
-                                if(text==null || text.isEmpty){
-                                  return 'Name can\'t be empty';
-                                }
-                                if(text.length<2){
-                                  return 'Please Enter a valid Name';
-                                }
-                                if(text.length>49){
-                                  return 'Name can\'t be greater than 50';
-                                }
-                              },
-                              onChanged: (text)=>setState(() {
-                                femaleTextEditingController.text =text;
-                              }),
-                            ),SizedBox(height: 15,),
-                            TextFormField(
-                              style: TextStyle(color: Colors.white),
-                              controller: femaledateTextEditingController,
-                              readOnly: true,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(50)
-                              ],
-                              decoration: InputDecoration(
-                                hintText: "Your Partener Birth (Optional)",
-                                hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17
-                                ),
-                                filled: true,
-                                fillColor: Colors.black,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                        width: 0,
-                                        style: BorderStyle.none
-                                    )
-                                ),
-                                prefixIcon: Icon(Icons.date_range,color:Colors.amber.shade400),
-                              ),
-                              onTap: ()async{
-                                DateTime? datepicker = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1950),
-                                  lastDate: DateTime.now(),
-                                );
-                                var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
-                                print(date);
-                                femaledateTextEditingController.text = date;
-
-
-                              },
-                            ),
-                            SizedBox(height: 20,),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.amber.shade400,
-                                  onPrimary:Colors.black ,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-
+                        child: Container(
+                          width:(MediaQuery.of(context).size.width<MediaQuery.of(context).size.height)?MediaQuery.of(context).size.width:MediaQuery.of(context).size.width*0.4 ,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              TextFormField(
+                                style: TextStyle(color: Colors.white),
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(50)
+                                ],
+                                decoration: InputDecoration(
+                                  hintText: "Your Name",
+                                  hintStyle: TextStyle(color: Colors.white,fontSize: 17),
+                                  filled: true,
+                                  fillColor:Colors.black,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                          width: 0,
+                                          style: BorderStyle.none
+                                      )
                                   ),
-                                  minimumSize: Size(double.infinity, 50)
-
+                                  prefixIcon: Icon(Icons.person,color:Colors.amber.shade400,),
+                                ),
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (text){
+                                  if(text==null || text.isEmpty){
+                                    return 'Name can\'t be empty';
+                                  }
+                                  if(text.length<2){
+                                    return 'Please Enter a valid Name';
+                                  }
+                                  if(text.length>49){
+                                    return 'Name can\'t be greater than 50';
+                                  }
+                                },
+                                onChanged: (text)=>setState(() {
+                                  malenameTextEditingController.text =text;
+                          
+                                }),
                               ),
-                              onPressed: ()async{
-                                percent= await FireStoreMethods().AddData(malenameTextEditingController.text.trim().toLowerCase(),femaleTextEditingController.text.trim().toLowerCase(),maledatelTextEditingController.text.trim().toLowerCase(),femaledateTextEditingController.text.trim().toLowerCase());
-                                  malenameTextEditingController.text='';
-                                  femaleTextEditingController.text='';
-                                  maledatelTextEditingController.text='Male DOB';
-                                  femaledateTextEditingController.text='Female DOB';
-                                  print('${percent}');
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>showResult()));
-
-                              }, child: Text("Submit"),
-
-
-                            )
-
-
-                          ],
+                              SizedBox(height: 15,),
+                              TextFormField(
+                                style: TextStyle(color: Colors.white),
+                                controller: maledatelTextEditingController,
+                                readOnly: true,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(50)
+                                ],
+                                decoration: InputDecoration(
+                                  hintText: "Your Birth (Optional)",
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.black,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: BorderSide(
+                                          width: 0,
+                                          style: BorderStyle.none
+                                      )
+                                  ),
+                                  prefixIcon: Icon(Icons.date_range,color:Colors.amber.shade400),
+                                ),
+                                onTap: ()async{
+                                  DateTime? datepicker = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1950),
+                                    lastDate: DateTime.now(),
+                                  );
+                                  var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
+                                  print(date);
+                                  maledatelTextEditingController.text = date;
+                          
+                          
+                                },
+                              ),
+                              Image.asset("assets/images/love.png",width: 150,),
+                              TextFormField(
+                                style: TextStyle(color: Colors.white),
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(50)
+                                ],
+                                decoration: InputDecoration(
+                                  hintText: "Your Partener Name",
+                                  hintStyle: TextStyle(color: Colors.white,fontSize: 17),
+                                  filled: true,
+                                  fillColor: Colors.black,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                          width: 0,
+                                          style: BorderStyle.none
+                                      )
+                                  ),
+                                  prefixIcon:  Icon(Icons.person,color: Colors.amber.shade400,),
+                                ),
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (text){
+                                  if(text==null || text.isEmpty){
+                                    return 'Name can\'t be empty';
+                                  }
+                                  if(text.length<2){
+                                    return 'Please Enter a valid Name';
+                                  }
+                                  if(text.length>49){
+                                    return 'Name can\'t be greater than 50';
+                                  }
+                                },
+                                onChanged: (text)=>setState(() {
+                                  femaleTextEditingController.text =text;
+                                }),
+                              ),SizedBox(height: 15,),
+                              TextFormField(
+                                style: TextStyle(color: Colors.white),
+                                controller: femaledateTextEditingController,
+                                readOnly: true,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(50)
+                                ],
+                                decoration: InputDecoration(
+                                  hintText: "Your Partener Birth (Optional)",
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.black,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                          width: 0,
+                                          style: BorderStyle.none
+                                      )
+                                  ),
+                                  prefixIcon: Icon(Icons.date_range,color:Colors.amber.shade400),
+                                ),
+                                onTap: ()async{
+                                  DateTime? datepicker = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1950),
+                                    lastDate: DateTime.now(),
+                                  );
+                                  var date = "${datepicker?.day} - ${datepicker?.month} - ${datepicker?.year}";
+                                  print(date);
+                                  femaledateTextEditingController.text = date;
+                          
+                          
+                                },
+                              ),
+                              SizedBox(height: 20,),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.amber.shade400,
+                                    onPrimary:Colors.black ,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                          
+                                    ),
+                                    minimumSize: Size(double.infinity, 50)
+                          
+                                ),
+                                onPressed: ()async{
+                                  percent= await FireStoreMethods().AddData(malenameTextEditingController.text.trim().toLowerCase(),femaleTextEditingController.text.trim().toLowerCase(),maledatelTextEditingController.text.trim().toLowerCase(),femaledateTextEditingController.text.trim().toLowerCase());
+                                    malenameTextEditingController.text='';
+                                    femaleTextEditingController.text='';
+                                    maledatelTextEditingController.text='Male DOB';
+                                    femaledateTextEditingController.text='Female DOB';
+                                    print('${percent}');
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>showResult()));
+                          
+                                }, child: Text("Submit"),
+                          
+                          
+                              )
+                          
+                          
+                            ],
+                          ),
                         ),
                       ),
                     ],
