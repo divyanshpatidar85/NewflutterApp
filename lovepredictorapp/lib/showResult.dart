@@ -47,47 +47,86 @@ class _showResultState extends State<showResult> {
                     children:[
                     const  TextSpan(
                    text:'Love ',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(color:Colors.white,
+                   fontSize:40,
+                   ),
                       ),
                       const  TextSpan(
                    text:'meter ',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(
+                    color:Colors.white,
+                    fontSize:30,
+                    )
+                   
                       ),
                     const    TextSpan(
                    text:'at ',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(color:Colors.white,
+                   fontSize:40,
+                   )
                       ),
                          TextSpan(
-                   text:'${percent.toStringAsFixed(2)} ',
-                   style:const TextStyle(color:Colors.white)
+                   text:'${percent.toStringAsFixed(2)} ,',
+                   style:const TextStyle(color:Colors.white,
+                   fontSize:30,
+                   fontWeight:FontWeight.bold)
                       ),
-                       const TextSpan(
-                   text:', but',
-                   style:TextStyle(color:Colors.white)
+                       
+                    
+                    ]
+                  )),
+                ),
+                Center(
+                  child: RichText(text:const TextSpan(
+                    children:[
+                   
+                 TextSpan(
+                   text:'but',
+                   style:TextStyle(color:Colors.white,
+                   fontSize:40,
+                   )
                       ),
-                      const  TextSpan(
+                      TextSpan(
                    text:' commitment ',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(color:Colors.white,
+                   fontSize:30,)
                       ),
-                    const  TextSpan(
+                   
+                    
+                   
+                    ]
+                  )
+                  ),
+                ),
+                Center(
+                  child: RichText(text:const TextSpan(
+                    children:[
+                   
+                   TextSpan(
                    text:' level',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(color:Colors.white,
+                   fontSize: 40
+                   )
                       ),
-                    const  TextSpan(
+                    TextSpan(
                    text:' at',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(color:Colors.white,
+                   fontSize:30)
                       ),
-                    const  TextSpan(
+                    TextSpan(
                    text:' a',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(color:Colors.white,
+                   fontSize: 40)
                       ),
-                    const  TextSpan(
+                    TextSpan(
                    text:' solid',
-                   style:TextStyle(color:Colors.white)
+                   style:TextStyle(color:Colors.white,
+                   fontSize: 30)
                       ),
-                    const   TextSpan(
-                   text:' 100%',
-                   style:TextStyle(color:Colors.white)
+                    TextSpan(
+                   text:' 101%',
+                   style:TextStyle(color:Colors.white,
+                   fontSize: 40)
                       ),
                     ]
                   )),

@@ -12,7 +12,7 @@ class FireStoreMethods {
     try {
       String uid = const Uuid().v1();
       var intValuee = Random().nextDouble(); // Value is >= 0 and < 10.
-      intValuee = Random().nextDouble()*80+20;
+      intValuee = Random().nextDouble()*19+80;
 
 
       QuerySnapshot snapshot = await _firestore
